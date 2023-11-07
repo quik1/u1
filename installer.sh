@@ -2,7 +2,9 @@
 
 hyprlandp="
 	hyprland-git
-	xdg-desktop-portal-hyprland
+	xdg-desktop-portal-hyprland-git
+xdg-desktop-portal-wlr-git
+xdg-desktop-portal-gtk 
     xorg-xwayland
     qt5-wayland
     catppuccin-gtk-theme-mocha
@@ -17,17 +19,21 @@ hyprlandp="
     pipewire-jack 
     pavucontrol
     wireplumber
+    dunst
+    
 "
 
 components="
 	mako
+ clipman
     jq
     waybar
     rofi-lbonn-wayland
-    polkit-gnome
+    polkit-kde-agent
     swaybg
     gtklock
     swww
+    fish
     fish
     cliphist
     swayimg
@@ -41,16 +47,18 @@ components="
     file-roller 
     gtk-engine-murrine 
     gnome-themes-extra
-    xdg-user-dirs
+    xdg-user-dirs-gtk
     micro
+    rustup
 "
 
 programs="
 	firefox
 	eog
 	nwg-look
-	telegram-desktop
-	obs-studio
+	marker
+ geany
+ geany-plugins
 	spotify
 	vlc
 "
@@ -68,15 +76,15 @@ if [[ $ANSWER == "Y" || $ANSWER == "y" ]]; then
 	echo "Installing paru.."
 	sleep 3
     sudo pacman -S --needed base-devel
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
     makepkg -si
-    rm -R ./paru
+    rm -R ./yay
     echo
     echo
     echo
     echo
-    echo "Paru installation success..!"
+    echo "yay installation success..!"
     echo 
 elif [[ $ANSWER == "N" || $ANSWER == "n" ]]; then
     echo "Bye Bye.."
@@ -88,7 +96,7 @@ read -rep $'Install required packages?' ANSWER
 if [[ $ANSWER == "Y" || $ANSWER == "y" ]]; then
 	echo "Installing packages.."
 	sleep 3
-	paru -S --needed $hyprlandp $components $font
+	yay -S --needed $hyprlandp $components $font
 	echo
     echo
     echo
@@ -133,7 +141,7 @@ read -rep $'Install sddm?' ANSWER
 if [[ $ANSWER == "Y" || $ANSWER == "y" ]]; then
 	echo "Installing sddm.."
 	sleep 3
-	paru -S --needed sddm
+	yay -S --needed sddm
 	systemctl enable sddm.service
 	echo
     echo
@@ -147,10 +155,10 @@ else
     echo "Error! type 'y' or 'n' Exit.."
 fi
 
-read -rep $'Install additional programs(telegram firefox eog spotify obs vlc nwg-look)?' ANSWER
+read -rep $'Install additional programs(alacritty firefox eog spotify vivaldi vlc nwg-look)?' ANSWER
 if [[ $ANSWER == "Y" || $ANSWER == "y" ]]; then
 	echo "Installing additional programs.."
-	paru -S --needed $programs
+	yay -S --needed $programs
 	echo
     echo
     echo
