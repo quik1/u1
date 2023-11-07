@@ -13,7 +13,9 @@ meson
 libxcb 
 xcb-proto 
 xcb-util 
-xcb-util-keysyms 
+xcb-util-keysyms
+fcitx5
+fcitx5-qt
 libxfixes 
 libx11 
 libxcomposite 
