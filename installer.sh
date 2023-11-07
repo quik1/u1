@@ -1,6 +1,34 @@
 #!/bin/bash
 
 hyprlandp="
+autoconf
+automake
+udiskie
+udisks2
+gdb 
+ninja 
+gcc 
+cmake 
+meson 
+libxcb 
+xcb-proto 
+xcb-util 
+xcb-util-keysyms 
+libxfixes 
+libx11 
+libxcomposite 
+xorg-xinput 
+libxrender 
+pixman 
+wayland-protocols 
+cairo 
+pango 
+seatd 
+libxkbcommon 
+xcb-util-wm 
+libinput 
+libliftoff 
+libdisplay-info cpio
 	hyprland-git
 	xdg-desktop-portal-hyprland-git
 xdg-desktop-portal-wlr-git
