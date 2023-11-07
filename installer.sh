@@ -24,12 +24,22 @@ xdg-desktop-portal-gtk
 "
 
 components="
+btop
+ffmpeg
+ffmpegthumbnailer
+noise-suppression-for-voice
+playerctl
+brightnessctl
 	mako
+ mpv
+ pamixer
  clipman
+ gvfs
     jq
-    waybar
+    waybar-hyprland-git
     rofi-lbonn-wayland
-    polkit-kde-agent
+    sddm-git
+    polkit-kde-agent    
     swaybg
     gtklock
     swww
@@ -51,16 +61,26 @@ components="
     micro
     rustup
 "
+   fi
+    xdg-user-dirs-gtk-update
+    echo
+    print_success " All necessary packages installed successfully."
+
+else
+    echo
+    print_error " Packages not installed - please check the install.log"
+    
 
 programs="
 	firefox
 	eog
-	nwg-look
+	nwg-look-bin
 	marker
  geany
  geany-plugins
 	spotify
 	vlc
+ wlogout-git
 "
 
 
@@ -68,12 +88,40 @@ font="
     ttf-jetbrains-mono
     ttf-nerd-fonts-symbols
     papirus-icon-theme
+       ttf-jetbrains-mono-nerd 
+       ttf-icomoon-feather 
+       ttf-iosevka-nerd 
+       adobe-source-code-pro-fonts
+       ttf-nerd-fonts-symbols-common 
+       otf-firamono-nerd 
+       inter-font 
+       otf-sora 
+       ttf-fantasque-nerd 
+       noto-fonts 
+       noto-fonts-emoji 
+       ttf-comfortaa
 "
+read -n1 -rep "${CAT} Would you like to copy config files? (y,n)" CFG
+if [[ $CFG =~ ^[Yy]$ ]]; then
+    printf " Copying config files...\n"
+    cp -r dotconfig/dunst ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/hypr ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/kitty ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/pipewire ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/rofi ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/swaylock ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/waybar ~/.config/ 2>&1 | tee -a $LOG
+    cp -r dotconfig/wlogout ~/.config/ 2>&1 | tee -a $LOG
+        cp -r dotconfig/alacritty ~/.config/ 2>&1 | tee -a $LOG
+	    cp -r dotconfig/ranger ~/.config/ 2>&1 | tee -a $LOG
+         cp -r dotconfig/wofi ~/.config/ 2>&1 | tee -a $LOG	 
+    cp -r dotconfig/fuzzel ~/.config/ 2>&1 | tee -a $LOG
+    mkdir ~/.config/hypr/themes
 
 read -rep $'Proceed with installation? (y - n)' ANSWER
 
 if [[ $ANSWER == "Y" || $ANSWER == "y" ]]; then
-	echo "Installing paru.."
+	echo "Installing yay.."
 	sleep 3
     sudo pacman -S --needed base-devel
     git clone https://aur.archlinux.org/yay.git
@@ -115,22 +163,7 @@ else
     echo "Error! type 'y' or 'n' Exit..."
 fi
 
-read -rep $'Install fish?' ANSWER
-if [[ $ANSWER == "Y" || $ANSWER == "y" ]]; then
-	echo "Installing fish.."
-	sleep 3
-	fish
-	curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-	fisher install jorgebucaran/nvm.fish
-	fisher install IlanCosman/tide@v5
-	chsh -s /usr/bin/fish
-	set -U fish_greeting
-	echo
-    echo
-    echo
-    echo
-    echo "Fish installation success..!"
-    echo 
+
 elif [[ $ANSWER == "N" || $ANSWER == "n" ]]; then
 	echo "Skipping fish install.."
 else
